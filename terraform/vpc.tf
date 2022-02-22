@@ -11,6 +11,8 @@ provider "google" {
   region  = var.region
 }
 
+/* DONT KNOW IF NEEDED, TAKES A LOT OF CREDITS ON GKE
+
 # VPC
 resource "google_compute_network" "vpc" {
   name                    = "${var.project_id}-vpc"
@@ -23,4 +25,6 @@ resource "google_compute_subnetwork" "subnet" {
   region        = var.region
   network       = google_compute_network.vpc.name
   ip_cidr_range = "10.10.0.0/24"
-}
+} 
+
+*/
