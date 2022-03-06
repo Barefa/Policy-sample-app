@@ -6,12 +6,16 @@ variable "region" {
   description = "region"
 }
 
+variable "locations" {
+  description = "zones"
+}
+
 provider "google" {
   project = var.project_id
   region  = var.region
 }
 
-/* DONT KNOW IF NEEDED, TAKES A LOT OF CREDITS ON GKE
+/* DONT KNOW IF NECESSARY
 
 # VPC
 resource "google_compute_network" "vpc" {
