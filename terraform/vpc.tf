@@ -15,7 +15,7 @@ provider "google" {
   region  = var.region
 }
 
-/* DONT KNOW IF NECESSARY
+/* DONT KNOW IF NEEDED,
 
 # VPC
 resource "google_compute_network" "vpc" {
