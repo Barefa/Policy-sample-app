@@ -25,17 +25,10 @@ spec:
            value: -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
         resources:
           limits:
-<<<<<<< HEAD
-            cpu: 250m
-            memory: 500Mi
-          requests:
-            cpu: 100m
-=======
             cpu: 500m
             memory: 500Mi
           requests:
             cpu: 200m
->>>>>>> parent of fd7cef0... updated terraform provisioning and tweaked resource limits and requests
             memory: 500Mi
         ports:
         - containerPort: 80

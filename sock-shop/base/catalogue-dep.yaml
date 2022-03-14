@@ -20,17 +20,10 @@ spec:
         image: weaveworksdemos/catalogue:0.3.5
         resources:
           limits:
-<<<<<<< HEAD
-            cpu: 50m
-            memory: 100Mi
-          requests:
-            cpu: 50m
-=======
             cpu: 100m
             memory: 100Mi
           requests:
             cpu: 100m
->>>>>>> parent of fd7cef0... updated terraform provisioning and tweaked resource limits and requests
             memory: 100Mi
         ports:
         - containerPort: 80
