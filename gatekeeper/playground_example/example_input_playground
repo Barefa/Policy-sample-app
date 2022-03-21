@@ -1,0 +1,46 @@
+{
+    "kind": "AdmissionReview",
+    "match": {
+      "kinds": [
+        {
+          "apiGroups": [
+            ""
+          ],
+          "kinds": [
+            "Namespace"
+          ]
+        }
+      ],
+      "excludedNamespaces": [
+        "kube-system",
+        "kube-public",
+        "kube-node-lease",
+        "default",
+        "gatekeeper-system",
+        "kured"
+      ]
+    },
+    "parameters": {
+      "labels": [
+        "gatekeeper"
+      ]
+    },
+    "review": {
+        "kind": {
+            "kind": "Pod",
+            "version": "v1"
+        },
+        "object": {
+            "metadata": {
+                "name": "myapp",
+                "namespace": "default",
+                "labels": {
+                    "gatekeeper": "OPA"
+                }
+            },
+            "spec": {
+                "containers": []
+            }
+        }
+    }
+}
