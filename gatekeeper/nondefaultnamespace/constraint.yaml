@@ -1,9 +1,9 @@
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: k8snondefault
 metadata:
-  name: non-default-ns-dep
+  name: non-default-ns-pod
 spec:
   match:
     kinds:
-      - apiGroups: ["apps"]
-        kinds: ["Deployment"]
+      - apiGroups: ["", "apps"]
+        kinds: ["Pod", "Deployment"]
