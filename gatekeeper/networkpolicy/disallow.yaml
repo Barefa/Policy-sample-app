@@ -1,0 +1,22 @@
+# src: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-disallow
+  labels:
+    app: nginx-disallow
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-disallow
+  template:
+    metadata:
+      labels:
+        app: nginx-disallow
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
