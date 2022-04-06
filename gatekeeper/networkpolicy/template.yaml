@@ -1,0 +1,34 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequirenetworkpolicy
+  annotations:
+    description: >-
+      Requires deployments to have a NetworkPolicy attached.
+spec:
+  crd:
+    spec:
+      names:
+        kind: k8srequirenetworkpolicy
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequirenetworkpolicy
+
+        violation[{"msg": msg}] {
+          policies := data.inventory.namespace["default"]["networking.k8s.io/v1"]["NetworkPolicy"]
+
+          pod_label_value := {v["app"] | v := input.review.object.spec.template.metadata.labels}
+          np_label_value := {v["app"] | v := policies[_].spec.podSelector.matchLabels}
+
+          matches := pod_label_value & np_label_value
+          count(matches) == 0 # checks if there are no matches
+
+          msg := sprintf("The Pod: %v could not be created because it is missing an associated Network Security Policy.", [input.review.object.metadata.name])
+        }
+
+
