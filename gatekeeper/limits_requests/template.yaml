@@ -22,50 +22,50 @@ spec:
         missing(obj, field) = true {
           not obj[field]
         }
-
+        
         missing(obj, field) = true {
           obj[field] == ""
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
-            not container.resources or not 
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
+            not count(container.resources) > 0 # resources is automatically created empty if it does not exist
             msg := "resources not specified in spec.containers"
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
             not container.resources.limits
-            msg := "limit not specified in spec.containers.resources"
+            msg := "limits not specified in spec.containers.resources"
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
             not container.resources.requests
             msg := "requests not specified in spec.containers.resources"
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
-            missing(container.resources.requests, "cpu")
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
+            not container.resources.requests.cpu
             msg := "cpu not specified in spec.containers.resources.requests"
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
-            missing(container.resources.requests, "memory")
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
+            not container.resources.requests.memory
             msg := "memory not specified in spec.containers.resources.requests"
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
-            missing(container.resources.limits, "cpu")
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
+            not container.resources.limits.cpu
             msg := "cpu not specified in spec.containers.resources.limits"
         }
 
-        violation[{"msg": msg, "field": {field}}] {
-            container := input.review.object.spec[field][_]
-            missing(container.resources.limits, "memory")
+        violation[{"msg": msg}] {
+            container := input.review.object.spec["containers"][_]
+            not container.resources.limits.memory
             msg := "memory not specified in spec.containers.resources.limits"
         }
 
