@@ -19,14 +19,6 @@ spec:
       rego: |
         package k8srequirelimitsrequests
 
-        missing(obj, field) = true {
-          not obj[field]
-        }
-        
-        missing(obj, field) = true {
-          obj[field] == ""
-        }
-
         violation[{"msg": msg}] {
             container := input.review.object.spec["containers"][_]
             not count(container.resources) > 0 # resources is automatically created empty if it does not exist

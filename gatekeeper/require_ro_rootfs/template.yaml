@@ -25,7 +25,13 @@ spec:
         package k8srorootfs
 
         violation[{"msg": msg, "details": {}}] {
-            not input.review.object.spec.containers.securityContext.readOnlyRootFilesystem
-            msg := "spec.securityContext.containers.readOnlyRootFilesystem not specified or false, should be set to true"
+            container := input.request.object.spec.containers[_]
+            not container.securityContext["readOnlyRootFilesystem"]
+            msg := "spec.securityContext.containers.readOnlyRootFilesystem not specified, should be set to true"
+        }
+
+        violation[{"msg": msg, "details": {}}] {
+            input.request.object.spec.containers[_].securityContext["readOnlyRootFilesystem"] == false
+            msg := "spec.securityContext.containers.readOnlyRootFilesystem false, should be set to true"
         }
 
